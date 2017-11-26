@@ -3,34 +3,22 @@ var orm = require('../config/orm.js')
 
 var burger = {
 
-	selectWhere: function(burgerName, callback){
-		orm.selectWhere('burgers', 'burger_name', burgerName, function(data){
-			callback(data)
-		})
+	all: function(cb) {
+		orm.all("burgers", function(res) {
+			cb(res);
+		});
 	},
-
-	insertOne: function(column, name, callback){
-
-		orm.insertOne('burgers', column, name, function(data){
-			callback(data);
-		})
+	create: function(name, cb) {
+		orm.create("burgers"
+			, ["burger_name", "devoured"]
+			, [name, false], cb);
 	},
-	selectAll: function(callback){
-		
-		orm.selectAll('burgers', function(data){
-			callback(data);
-		})
-	},
-	updateOne: function(table, column, id, callback){
-		orm.updateOne('burgers', column, id, function(data){
-			callback(data);
-		})
-	},
-	deleteOne: function(table, id, callback){
-		orm.deleteOne('burgers', id, function(data){
-			callback(data);
-		})
+	update: function(id, cb) {
+		var condition = "id=" + id;
+		orm.update("burgers", {
+			devoured: true}, condition, cb);
 	}
-}
+
+};
 
 module.exports = burger;
