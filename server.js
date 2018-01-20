@@ -11,15 +11,16 @@ app.use(bodyParser.urlencoded({
 
 //app.use
 
-var exphbs = require('express-handelbars');
+var exphbs = require('express-handlebars');
 
-app.engine('handlebars', exphs({
+app.engine('handlebars', exphbs({
 	defaultLayout: 'main'
 }));
 
 app.set('view engine', 'handlebars');
 
-var routes = require('./controllers/burger_controller.js');
+var routes = require('./controllers/burgers_controller.js');
+
 app.use('/', routes);
 
 app.listen(process.env.PORT || 3000);
